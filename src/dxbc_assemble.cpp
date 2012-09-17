@@ -34,30 +34,30 @@
 
 std::pair<void*, size_t> dxbc_assemble(struct dxbc_chunk_header** chunks, unsigned num_chunks)
 {
-	size_t data_size = 0;
-	for(unsigned i = 0; i < num_chunks; ++i)
-		data_size += sizeof(uint32_t) + sizeof(dxbc_chunk_header) + bswap_le32(chunks[i]->size);
+   size_t data_size = 0;
+   for(unsigned i = 0; i < num_chunks; ++i)
+      data_size += sizeof(uint32_t) + sizeof(dxbc_chunk_header) + bswap_le32(chunks[i]->size);
 
-	size_t total_size = sizeof(dxbc_container_header) + data_size;
-	dxbc_container_header* header = (dxbc_container_header*)malloc(total_size);
-	if(!header)
-		return std::make_pair((void*)0, 0);
+   size_t total_size = sizeof(dxbc_container_header) + data_size;
+   dxbc_container_header* header = (dxbc_container_header*)malloc(total_size);
+   if(!header)
+      return std::make_pair((void*)0, 0);
 
-	header->fourcc = bswap_le32(FOURCC_DXBC);
-	memset(header->unk, 0, sizeof(header->unk));
-	header->one = bswap_le32(1);
-	header->total_size = bswap_le32(total_size);
-	header->chunk_count = num_chunks;
+   header->fourcc = bswap_le32(FOURCC_DXBC);
+   memset(header->unk, 0, sizeof(header->unk));
+   header->one = bswap_le32(1);
+   header->total_size = bswap_le32(total_size);
+   header->chunk_count = num_chunks;
 
-	uint32_t* chunk_offsets = (uint32_t*)(header + 1);
-	uint32_t off = sizeof(struct dxbc_container_header) + num_chunks * sizeof(uint32_t);
-	for(unsigned i = 0; i < num_chunks; ++i)
-	{
-		chunk_offsets[i] = bswap_le32(off);
-		unsigned chunk_full_size = sizeof(dxbc_chunk_header) + bswap_le32(chunks[i]->size);
-		memcpy((char*)header + off, chunks[i], chunk_full_size);
-		off += chunk_full_size;
-	}
+   uint32_t* chunk_offsets = (uint32_t*)(header + 1);
+   uint32_t off = sizeof(struct dxbc_container_header) + num_chunks * sizeof(uint32_t);
+   for(unsigned i = 0; i < num_chunks; ++i)
+   {
+      chunk_offsets[i] = bswap_le32(off);
+      unsigned chunk_full_size = sizeof(dxbc_chunk_header) + bswap_le32(chunks[i]->size);
+      memcpy((char*)header + off, chunks[i], chunk_full_size);
+      off += chunk_full_size;
+   }
 
-	return std::make_pair((void*)header, total_size);
+   return std::make_pair((void*)header, total_size);
 }
