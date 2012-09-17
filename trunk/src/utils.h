@@ -37,12 +37,12 @@
 #ifdef WORDS_BIGENDIAN
 static inline uint32_t le32_to_cpu(uint32_t v)
 {
-	return ((v & 0xff) << 24) | ((v & 0xff00) << 8) | ((v & 0xff0000) >> 8) | ((v & 0xff000000) >> 24);
+   return ((v & 0xff) << 24) | ((v & 0xff00) << 8) | ((v & 0xff0000) >> 8) | ((v & 0xff000000) >> 24);
 }
 #else
 static inline uint32_t le32_to_cpu(uint32_t v)
 {
-	return v;
+   return v;
 }
 #endif
 
