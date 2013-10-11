@@ -238,7 +238,7 @@ const char* sm4_opcode_names[] =
    "emit_stream",
    "cut_stream",
    "emitthencut_stream",
-   "interface_call",
+   "fcall",
    "bufinfo",
    "deriv_rtx_coarse",
    "deriv_rtx_fine",

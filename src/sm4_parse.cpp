@@ -315,9 +315,10 @@ relative:
                dcl.num = read32();
                break;
             case SM4_OPCODE_DCL_FUNCTION_TABLE:
-               dcl.num = read32();
-               dcl.data = malloc(dcl.num * sizeof(uint32_t));
-               for(unsigned i = 0; i < dcl.num; ++i)
+               dcl.function_table.id = read32();
+               dcl.function_table.num = read32();
+               dcl.data = malloc(dcl.function_table.num * sizeof(uint32_t));
+               for(unsigned i = 0; i < dcl.function_table.num; ++i)
                   ((uint32_t*)dcl.data)[i] = read32();
                break;
             case SM4_OPCODE_DCL_INTERFACE:
