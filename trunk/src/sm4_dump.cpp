@@ -186,6 +186,31 @@ std::ostream& operator <<(std::ostream& out, const sm4_dcl& dcl)
       out << '[' << dcl.indexable_temp.num << ']';
       out << ", " << dcl.indexable_temp.comps;
       break;
+   case SM4_OPCODE_DCL_FUNCTION_BODY:
+      out << ' ' << dcl.num;
+      break;
+   case SM4_OPCODE_DCL_FUNCTION_TABLE:
+      out << ' ' << dcl.function_table.id << " = { ";
+      for (unsigned i = 0; i < dcl.function_table.num; i++)
+      {
+         if (i > 0)
+            out << ", ";
+         out << ((unsigned*)dcl.data)[i];
+      }
+      out << " }";
+      break;
+   case SM4_OPCODE_DCL_INTERFACE:
+      out << ' ' << dcl.intf.id;
+      out << '[' << dcl.intf.array_length << ']';
+      out << '[' << dcl.intf.table_length << "] = { ";
+      for (unsigned i = 0; i < dcl.intf.table_length; i++)
+	  {
+         if (i > 0)
+            out << ", ";
+         out << ((unsigned*)dcl.data)[i];
+	  }
+	  out << " }";
+      break;
    default:
       break;
    }
@@ -217,12 +242,23 @@ std::ostream& operator <<(std::ostream& out, const sm4_insn& insn)
    out << sm4_opcode_names[insn.opcode];
    if(insn.insn.sat)
       out << "_sat";
-   for(unsigned i = 0; i < insn.num_ops; ++i)
+   switch (insn.opcode)
    {
-      if(i)
-         out << ',';
+   case SM4_OPCODE_INTERFACE_CALL:
       out << ' ';
-      dump_op_code(out, *insn.ops[i], &insn);
+      out << insn.ops[0]->indices[0].disp;
+      out << '[' << insn.ops[0]->indices[1].disp << ']';
+      out << '[' << insn.num << ']';
+      break;
+   default:
+      for(unsigned i = 0; i < insn.num_ops; ++i)
+      {
+         if(i)
+            out << ',';
+         out << ' ';
+         dump_op_code(out, *insn.ops[i], &insn);
+      }
+      break;
    }
    return out;
 }

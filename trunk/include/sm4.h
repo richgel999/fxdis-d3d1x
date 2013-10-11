@@ -356,6 +356,11 @@ struct sm4_dcl : public sm4_token_instruction
          unsigned stride;
          unsigned count;
       } structured;
+      struct
+      {
+         unsigned id;
+         unsigned num;
+      } function_table;
    };
 
    void* data;
