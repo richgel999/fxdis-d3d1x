@@ -244,6 +244,17 @@ std::ostream& operator <<(std::ostream& out, const sm4_insn& insn)
       out << "_sat";
    switch (insn.opcode)
    {
+   case SM4_OPCODE_BREAKC:
+   case SM4_OPCODE_CALLC:
+   case SM4_OPCODE_CONTINUEC:
+   case SM4_OPCODE_RETC:
+      out << (insn.insn.test_nz ? "_nz" : "_z");
+      break;
+   default:
+      break;
+   }
+   switch (insn.opcode)
+   {
    case SM4_OPCODE_INTERFACE_CALL:
       out << ' ';
       out << insn.ops[0]->indices[0].disp;
