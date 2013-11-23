@@ -608,3 +608,32 @@ const char* sm4_shortfile_names[] =
    "vCycleCounter",
 };
 
+const char* sm4_primitive_names[] =
+{
+   "",
+   "point",
+   "line",
+   "triangle",
+   "",
+   "",
+   "line_adj",
+   "triangle_adj",
+};
+
+const char* sm4_primitive_topology_names[] =
+{
+   "",
+   "pointlist",
+   "linelist",
+   "linestrip",
+   "trianglelist",
+   "trianglestrip",
+   "",
+   "",
+   "",
+   "",
+   "linelist_adj",
+   "linestrip_adj",
+   "trianglelist_adj",
+   "trianglestrip_adj",
+};

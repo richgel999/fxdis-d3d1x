@@ -67,6 +67,8 @@ extern const char* sm4_shortfile_names[];
 extern const char* sm4_target_names[];
 extern const char* sm4_interpolation_names[];
 extern const char* sm4_sv_names[];
+extern const char* sm4_primitive_names[];
+extern const char* sm4_primitive_topology_names[];
 
 struct sm4_token_version
 {

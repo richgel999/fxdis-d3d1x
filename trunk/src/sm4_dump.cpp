@@ -186,6 +186,15 @@ std::ostream& operator <<(std::ostream& out, const sm4_dcl& dcl)
       out << '[' << dcl.indexable_temp.num << ']';
       out << ", " << dcl.indexable_temp.comps;
       break;
+   case SM4_OPCODE_DCL_GS_INPUT_PRIMITIVE:
+       out << ' ' << sm4_primitive_names[dcl.dcl_gs_input_primitive.primitive];
+       break;
+   case SM4_OPCODE_DCL_GS_OUTPUT_PRIMITIVE_TOPOLOGY:
+       out << ' ' << sm4_primitive_topology_names[dcl.dcl_gs_output_primitive_topology.primitive_topology];
+       break;
+   case SM4_OPCODE_DCL_MAX_OUTPUT_VERTEX_COUNT:
+       out << ' ' << dcl.num;
+       break;
    case SM4_OPCODE_DCL_FUNCTION_BODY:
       out << ' ' << dcl.num;
       break;
