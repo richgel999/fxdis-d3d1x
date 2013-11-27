@@ -258,6 +258,7 @@ std::ostream& operator <<(std::ostream& out, const sm4_insn& insn)
    case SM4_OPCODE_CONTINUEC:
    case SM4_OPCODE_RETC:
    case SM4_OPCODE_DISCARD:
+   case SM4_OPCODE_IF:
       out << (insn.insn.test_nz ? "_nz" : "_z");
       break;
    default:
